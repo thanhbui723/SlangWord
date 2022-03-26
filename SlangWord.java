@@ -3,6 +3,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import java.lang.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 
 public class SlangWord {
     private String word;
@@ -42,6 +46,35 @@ public class SlangWord {
         }
         sc.close();
     }
+    public static void showHistory() throws FileNotFoundException {
+        System.out.print("\t\t\t\t\t\t" + "Slang");
+        for (int i = 4; i < 58; i++)
+            System.out.print(" ");
+        System.out.println("Time");
+        File file = new File("history.txt");
+        Scanner sc = new Scanner(file);
+        while (sc.hasNextLine()) {
+            String buffer = sc.nextLine();
+            System.out.println("\t\t\t\t\t\t" + buffer);
+        }
+    }
+
+    public static void writeToHistory(String word) throws IOException {
+        FileWriter fw = new FileWriter("history.txt", true);
+        fw.write(word);
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        for (int i = word.length(); i < 50; i++)
+            fw.write(".");
+        fw.write(dtf.format(now) + "\n");
+        fw.close();
+    }
+
+    static void clearHistory() throws IOException {
+        FileWriter fw = new FileWriter("history.txt");
+        fw.close();
+        System.out.println("Clear Complete!");
+    }
 
     public static void main(String[] args) throws FileNotFoundException, java.lang.NullPointerException {
         try {
@@ -63,12 +96,14 @@ public class SlangWord {
                 System.out.flush();
                 System.out.println("\t\t\t\t\t\t\t 1. Find meaning by slang word ");
                 System.out.println("\t\t\t\t\t\t\t 2. Find slang word by keyword ");
-                
+                System.out.println("\t\t\t\t\t\t\t 3. Show history");
+                System.out.println("\t\t\t\t\t\t\t 4. Clear history");
 
                 int choice = Integer.parseInt(sc.nextLine());
                 if (choice == 1) {
                     System.out.print("Enter slang word you want to know meaning: ");
                     String w = sc.nextLine();
+                    writeToHistory(w);
                     if (slang.get(w) != null)
                         System.out.println("Meaning: "+ slang.get(w));
                     else
@@ -86,6 +121,17 @@ public class SlangWord {
                     System.out.println("Press ENTER to continue!");
                     sc.nextLine();
                 
+                }else if (choice == 3) {
+                    System.out.print("history");
+                    System.out.flush();
+                    //
+                    showHistory();
+                    sc.nextLine();
+                }
+                else if (choice == 4) {
+                    clearHistory();
+                    System.out.println("Press ENTER to continue!");
+                    sc.nextLine();
                 }
 
                 else
