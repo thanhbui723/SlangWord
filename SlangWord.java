@@ -175,6 +175,27 @@ public class SlangWord {
             keyWordMap.put(wordsOfMeaning[i], keyWordMap.get(wordsOfMeaning[i]));
         }
     }
+    public static void deleteSlang(HashMap<String, String> slang, HashMap<String, ArrayList<String>> keyWordMap) {
+        System.out.print("Enter slang you want to delete: ");
+        Scanner sc = new Scanner(System.in);
+        String del = sc.nextLine();
+        if (slang.get(del) == null) {
+            System.out.println("Your slang you entered doesn't existed!");
+            sc.nextLine();
+            return;
+        } else {
+            System.out.println("Are you sure?");
+            System.out.println("1.Yes\t\t2.No");
+            int choice = Integer.parseInt(sc.nextLine());
+            if (choice == 1) {
+                String[] wordsOfMeaning = slang.get(del).split("\\s|\\,|\\?|\\.|\\|");
+                for (String s : wordsOfMeaning)
+                    keyWordMap.get(s).remove(del);
+                slang.remove(del);
+            } else
+                return;
+        }
+    }
     public static void main(String[] args) throws FileNotFoundException, java.lang.NullPointerException {
         try {
 
@@ -199,7 +220,7 @@ public class SlangWord {
                 System.out.println("\t\t\t\t\t\t\t 4. Clear history");
                 System.out.println("\t\t\t\t\t\t\t 5. Add a slang word");
                 System.out.println("\t\t\t\t\t\t\t 6. Edit slang word");
-
+                System.out.println("\t\t\t\t\t\t\t 7. Delete slang word");
                 int choice = Integer.parseInt(sc.nextLine());
                 if (choice == 1) {
                     System.out.print("Enter slang word you want to know meaning: ");
@@ -241,6 +262,12 @@ public class SlangWord {
                 } else if (choice == 6) {
                     edit(slang, keyWordMap);
                     System.out.println("Successfully!");
+                    System.out.println("Press ENTER to continue!");
+                    sc.nextLine();
+                }
+                else if (choice == 7) {
+                    deleteSlang(slang, keyWordMap);
+                    System.out.println("Remove Successfully!");
                     System.out.println("Press ENTER to continue!");
                     sc.nextLine();
                 }
