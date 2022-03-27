@@ -196,6 +196,12 @@ public class SlangWord {
                 return;
         }
     }
+    //reset slang word
+    static void reset(HashMap<String, String> slang, HashMap<String, ArrayList<String>> keyWordMap) 
+        throws FileNotFoundException {
+        readDataFromFile(slang, keyWordMap, "slang.txt");
+    }
+
     public static void main(String[] args) throws FileNotFoundException, java.lang.NullPointerException {
         try {
 
@@ -221,6 +227,7 @@ public class SlangWord {
                 System.out.println("\t\t\t\t\t\t\t 5. Add a slang word");
                 System.out.println("\t\t\t\t\t\t\t 6. Edit slang word");
                 System.out.println("\t\t\t\t\t\t\t 7. Delete slang word");
+                System.out.println("\t\t\t\t\t\t\t 8. Reset to list slang word at begin");
                 int choice = Integer.parseInt(sc.nextLine());
                 if (choice == 1) {
                     System.out.print("Enter slang word you want to know meaning: ");
@@ -268,6 +275,14 @@ public class SlangWord {
                 else if (choice == 7) {
                     deleteSlang(slang, keyWordMap);
                     System.out.println("Remove Successfully!");
+                    System.out.println("Press ENTER to continue!");
+                    sc.nextLine();
+                }
+                else if (choice == 8) {
+                    slang = new HashMap<>();
+                    keyWordMap = new HashMap<>();
+                    reset(slang, keyWordMap);
+                    System.out.println("Reset Successfully!");
                     System.out.println("Press ENTER to continue!");
                     sc.nextLine();
                 }
