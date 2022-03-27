@@ -76,6 +76,105 @@ public class SlangWord {
         System.out.println("Clear Complete!");
     }
 
+    static void addSlang(HashMap<String, String> slang, HashMap<String, ArrayList<String>> keyWordMap) {
+        SlangWord w = new SlangWord();
+        System.out.print("Enter Slang: ");
+        Scanner sc = new Scanner(System.in);
+        w.word = sc.nextLine();
+        String buffer = new String();
+        if (slang.get(w.word) == null) {
+            System.out.print("Enter meaning: ");
+            buffer = sc.nextLine() + "| ";
+            while (true) {
+                System.out.println("Do you want to enter another meaning?");
+                System.out.println("1. Yes\t\t 2.No");
+                int c = Integer.parseInt(sc.nextLine());
+                if (c == 1) {
+                    System.out.print("Enter meaning: ");
+                    buffer += sc.nextLine() + "| ";
+                } else if (c == 2) {
+                    buffer = buffer.substring(0, buffer.length() - 2);
+                    slang.put(w.word, buffer);
+                    break;
+                }
+            }
+        } else {
+            System.out.println("This slang has existed!");
+            System.out.println("What do you want to handle: ");
+            System.out.println("1. Duplicate\t 2. Overwrite");
+            String s = sc.nextLine();
+            int choice = Integer.parseInt(s);
+
+            if (choice == 1) {
+                System.out.print("Enter meaning: ");
+                w.meaning = sc.nextLine();
+                buffer = slang.get(w.word) + "| " + w.meaning;
+                slang.put(w.word, buffer);
+            } else {
+                System.out.print("Enter meaning: ");
+                buffer = sc.nextLine() + "| ";
+                while (true) {
+                    System.out.println("Do you want to enter another meaning?");
+                    System.out.println("1. Yes\t\t 2.No");
+                    int c = Integer.parseInt(sc.nextLine());
+                    if (c == 1) {
+                        System.out.print("Enter meaning: ");
+                        buffer += sc.nextLine() + "| ";
+                    } else if (c == 2) {
+                        buffer = buffer.substring(0, buffer.length() - 2);
+                        slang.put(w.word, buffer);
+                        break;
+                    }
+                }
+            }
+
+        }
+        String[] wordsOfMeaning = buffer.split("\\s|\\,|\\?|\\.|\\|");
+        for (int i = 0; i < wordsOfMeaning.length; i++) {
+            if (keyWordMap.get(wordsOfMeaning[i]) == null)
+                keyWordMap.put(wordsOfMeaning[i], new ArrayList<>());
+            keyWordMap.get(wordsOfMeaning[i]).add(w.word);
+            keyWordMap.put(wordsOfMeaning[i], keyWordMap.get(wordsOfMeaning[i]));
+        }
+        System.out.println("Successfully!");
+    }
+
+    static void edit(HashMap<String, String> slang, HashMap<String, ArrayList<String>> keyWordMap) {
+        SlangWord w = new SlangWord();
+        System.out.print("Enter Slang: ");
+        Scanner sc = new Scanner(System.in);
+        w.word = sc.nextLine();
+        String buffer = new String();
+        if (slang.get(w.word) == null) {
+            System.out.println("No slang founded!");
+            sc.nextLine();
+            return;
+        } else {
+            System.out.print("Enter meaning: ");
+            buffer = sc.nextLine() + "| ";
+            while (true) {
+                System.out.println("Do you want to enter another meaning?");
+                System.out.println("1. Yes\t\t 2.No");
+                int choice = Integer.parseInt(sc.nextLine());
+                if (choice == 1) {
+                    System.out.print("Enter meaning: ");
+                    buffer += sc.nextLine() + "| ";
+                } else if (choice == 2) {
+                    buffer = buffer.substring(0, buffer.length() - 2);
+                    slang.put(w.word, buffer);
+                    break;
+                }
+            }
+
+        }
+        String[] wordsOfMeaning = buffer.split("\\s|\\,|\\?|\\.|\\|");
+        for (int i = 0; i < wordsOfMeaning.length; i++) {
+            if (keyWordMap.get(wordsOfMeaning[i]) == null)
+                keyWordMap.put(wordsOfMeaning[i], new ArrayList<>());
+            keyWordMap.get(wordsOfMeaning[i]).add(w.word);
+            keyWordMap.put(wordsOfMeaning[i], keyWordMap.get(wordsOfMeaning[i]));
+        }
+    }
     public static void main(String[] args) throws FileNotFoundException, java.lang.NullPointerException {
         try {
 
@@ -98,6 +197,8 @@ public class SlangWord {
                 System.out.println("\t\t\t\t\t\t\t 2. Find slang word by keyword ");
                 System.out.println("\t\t\t\t\t\t\t 3. Show history");
                 System.out.println("\t\t\t\t\t\t\t 4. Clear history");
+                System.out.println("\t\t\t\t\t\t\t 5. Add a slang word");
+                System.out.println("\t\t\t\t\t\t\t 6. Edit slang word");
 
                 int choice = Integer.parseInt(sc.nextLine());
                 if (choice == 1) {
@@ -130,6 +231,16 @@ public class SlangWord {
                 }
                 else if (choice == 4) {
                     clearHistory();
+                    System.out.println("Press ENTER to continue!");
+                    sc.nextLine();
+                }
+                else if (choice == 5) {
+                    addSlang(slang, keyWordMap);
+                    System.out.println("Press ENTER to continue!");
+                    sc.nextLine();
+                } else if (choice == 6) {
+                    edit(slang, keyWordMap);
+                    System.out.println("Successfully!");
                     System.out.println("Press ENTER to continue!");
                     sc.nextLine();
                 }
