@@ -253,6 +253,30 @@ public class SlangWord {
             System.out.println("Uncorrect! The anwer is: " + w.meaning);
         return isCorrect;
     }
+    static void quiz2(HashMap<String, String> slang) {
+        SlangWord w = randomSlangWord(slang);
+        ArrayList<String> listAnswer = new ArrayList<>();
+        listAnswer.add(w.word);
+
+        for (int i = 1; i <= 3; i++) {
+            SlangWord temp = randomSlangWord(slang);
+            while(checkDuplicate(listAnswer, temp.word))
+                temp = randomSlangWord(slang);
+            listAnswer.add(temp.word);
+        }
+
+        Collections.shuffle(listAnswer);
+        System.out.println("What does the slang for \"" + w.meaning + "\" ?");
+        for (int i = 1; i <= 4; i++)
+            System.out.println("\t\t\t\t" + i + ". " + listAnswer.get(i - 1));
+        System.out.print("Your choice: ");
+        Scanner sc = new Scanner(System.in);
+        int answer = Integer.parseInt(sc.nextLine());
+        if (listAnswer.get(answer - 1).equals(w.word))
+            System.out.println("Correct!");
+        else
+            System.out.println("Uncorrect! The anwer is: " + w.word);
+    }
     public static void main(String[] args) throws FileNotFoundException, java.lang.NullPointerException {
         try {
 
