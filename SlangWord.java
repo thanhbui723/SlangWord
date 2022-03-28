@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Random;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Collections;
 
 import java.lang.*;
 import java.time.LocalDateTime;
@@ -219,6 +220,38 @@ public class SlangWord {
             count++;
         }
         return w;
+    }
+    //check dap an
+    static boolean checkDuplicate(ArrayList<String> lis, String needCheck){
+        for(int i = 0; i < lis.size(); i++)
+            if(needCheck.equals(lis.get(i)))
+                return true;
+        return false;
+    }
+    static boolean quiz1(HashMap<String, String> slang) {
+        SlangWord w = randomSlangWord(slang);
+        ArrayList<String> listAnswer = new ArrayList<>();
+        listAnswer.add(w.meaning);
+        for (int i = 0; i < 3; i++) {
+            SlangWord temp = randomSlangWord(slang);
+            while(checkDuplicate(listAnswer, temp.meaning))
+                temp = randomSlangWord(slang);
+            listAnswer.add(temp.meaning);
+        }
+        Collections.shuffle(listAnswer);
+        System.out.println("What does " + w.word + " mean?");
+        for (int i = 1; i <= 4; i++)
+            System.out.println("\t\t\t\t" + i + ". " + listAnswer.get(i - 1));
+        System.out.print("Your choice: ");
+        Scanner sc = new Scanner(System.in);
+        int answer = Integer.parseInt(sc.nextLine());
+        boolean isCorrect = false;
+        if (listAnswer.get(answer - 1).equals(w.meaning)) {
+            System.out.println("Correct!");
+            isCorrect = true;
+        } else
+            System.out.println("Uncorrect! The anwer is: " + w.meaning);
+        return isCorrect;
     }
     public static void main(String[] args) throws FileNotFoundException, java.lang.NullPointerException {
         try {
