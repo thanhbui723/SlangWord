@@ -1,6 +1,8 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
+import java.util.Map;
 import java.util.Scanner;
 
 import java.lang.*;
@@ -202,6 +204,22 @@ public class SlangWord {
         readDataFromFile(slang, keyWordMap, "slang.txt");
     }
 
+    //random slang
+    public static SlangWord randomSlangWord(HashMap<String, String> slang) {
+        SlangWord w = new SlangWord();
+        int count = 0;
+        Random rng = new Random();
+        int limit = rng.nextInt(slang.size());
+
+        for (Map.Entry<String, String> entry : slang.entrySet()) {
+            if (count > limit)
+                break;
+            w.word = entry.getKey();
+            w.meaning = entry.getValue();
+            count++;
+        }
+        return w;
+    }
     public static void main(String[] args) throws FileNotFoundException, java.lang.NullPointerException {
         try {
 
@@ -228,6 +246,7 @@ public class SlangWord {
                 System.out.println("\t\t\t\t\t\t\t 6. Edit slang word");
                 System.out.println("\t\t\t\t\t\t\t 7. Delete slang word");
                 System.out.println("\t\t\t\t\t\t\t 8. Reset to list slang word at begin");
+                System.out.println("\t\t\t\t\t\t\t 9. Random a slang word");
                 int choice = Integer.parseInt(sc.nextLine());
                 if (choice == 1) {
                     System.out.print("Enter slang word you want to know meaning: ");
@@ -283,6 +302,12 @@ public class SlangWord {
                     keyWordMap = new HashMap<>();
                     reset(slang, keyWordMap);
                     System.out.println("Reset Successfully!");
+                    System.out.println("Press ENTER to continue!");
+                    sc.nextLine();
+                }
+                else if (choice == 9) {
+                    SlangWord w = randomSlangWord(slang);
+                    w.show();
                     System.out.println("Press ENTER to continue!");
                     sc.nextLine();
                 }
