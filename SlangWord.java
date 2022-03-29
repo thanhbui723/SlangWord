@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Collections;
 
-import java.lang.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -250,7 +249,7 @@ public class SlangWord {
             System.out.println("Correct!");
             isCorrect = true;
         } else
-            System.out.println("Uncorrect! The anwer is: " + w.meaning);
+            System.out.println("UnCorrect! The answer is: " + w.meaning);
         return isCorrect;
     }
     static void quiz2(HashMap<String, String> slang) {
@@ -305,6 +304,8 @@ public class SlangWord {
                 System.out.println("\t\t\t\t\t\t\t 7. Delete slang word");
                 System.out.println("\t\t\t\t\t\t\t 8. Reset to list slang word at begin");
                 System.out.println("\t\t\t\t\t\t\t 9. Random a slang word");
+                System.out.println("\t\t\t\t\t\t\t 10. Quiz 1(Chose correct meaning for slang word)");
+                System.out.println("\t\t\t\t\t\t\t 11. Quiz 2(Chose correct slang word from meaning)");
                 int choice = Integer.parseInt(sc.nextLine());
                 if (choice == 1) {
                     System.out.print("Enter slang word you want to know meaning: ");
@@ -369,7 +370,16 @@ public class SlangWord {
                     System.out.println("Press ENTER to continue!");
                     sc.nextLine();
                 }
-
+                else if (choice == 10) {
+                    quiz1(slang);
+                    System.out.println("Press ENTER to continue!");
+                    sc.nextLine();
+                }
+                else if (choice == 11) {
+                    quiz2(slang);
+                    System.out.println("Press ENTER to continue!");
+                    sc.nextLine();
+                }
                 else
                     break;
             }
