@@ -275,8 +275,9 @@ public class SlangWord {
         if (listAnswer.get(answer - 1).equals(w.word))
             System.out.println("Correct!");
         else
-            System.out.println("Uncorrect! The anwer is: " + w.word);
+            System.out.println("UnCorrect! The answer is: " + w.word);
     }
+    
     public static void main(String[] args) throws FileNotFoundException, java.lang.NullPointerException {
         try {
 
