@@ -18,7 +18,7 @@ public class SlangWord {
     public void show() {
         System.out.println(word + " - " + meaning);
     }
-    // Cau truc luu
+    // Cau truc luu giu du lieu
     // #1 slang(word, meaning)
     // #2 keyWordMap(WordsOfMeaning, ...listword...)
     public static void readDataFromFile(HashMap<String, String> slang, HashMap<String, ArrayList<String>> keyWordMap,
@@ -48,6 +48,7 @@ public class SlangWord {
         }
         sc.close();
     }
+    //xuat lich su tim kiem
     public static void showHistory() throws FileNotFoundException {
         System.out.print("\t\t\t\t\t\t" + "Slang");
         for (int i = 4; i < 58; i++)
@@ -60,7 +61,7 @@ public class SlangWord {
             System.out.println("\t\t\t\t\t\t" + buffer);
         }
     }
-
+   //luu lich su tim kiem
     public static void writeToHistory(String word) throws IOException {
         FileWriter fw = new FileWriter("history.txt", true);
         fw.write(word);
@@ -77,7 +78,7 @@ public class SlangWord {
         fw.close();
         System.out.println("Clear Complete!");
     }
-
+    // them 1 slang word
     static void addSlang(HashMap<String, String> slang, HashMap<String, ArrayList<String>> keyWordMap) {
         SlangWord w = new SlangWord();
         System.out.print("Enter Slang: ");
@@ -140,7 +141,7 @@ public class SlangWord {
         }
         System.out.println("Successfully!");
     }
-
+    //edit slang word
     static void edit(HashMap<String, String> slang, HashMap<String, ArrayList<String>> keyWordMap) {
         SlangWord w = new SlangWord();
         System.out.print("Enter Slang: ");
@@ -177,6 +178,7 @@ public class SlangWord {
             keyWordMap.put(wordsOfMeaning[i], keyWordMap.get(wordsOfMeaning[i]));
         }
     }
+    //delete slang word
     public static void deleteSlang(HashMap<String, String> slang, HashMap<String, ArrayList<String>> keyWordMap) {
         System.out.print("Enter slang you want to delete: ");
         Scanner sc = new Scanner(System.in);
@@ -283,29 +285,26 @@ public class SlangWord {
             HashMap<String, String> slang = new HashMap<>();
             HashMap<String, ArrayList<String>> keyWordMap = new HashMap<>();
               
-            File f = new File("currentSlang.txt");
-            if (f.exists() && !f.isDirectory()) {
-                readDataFromFile(slang, keyWordMap, "currentSlang.txt");
-            } else {
-                readDataFromFile(slang, keyWordMap, "slang.txt");
-            }
+            readDataFromFile(slang, keyWordMap, "slang.txt");       
 
             Scanner sc = new Scanner(System.in);
             while (true) {
-
-                System.out.print("Slang Word\n");
+                System.out.println("\t\t\t\tSlang Word");
+                System.out.print("\t\t--------------------------------------------------------\n");
                 System.out.flush();
-                System.out.println("\t\t\t\t\t\t\t 1. Find meaning by slang word ");
-                System.out.println("\t\t\t\t\t\t\t 2. Find slang word by keyword ");
-                System.out.println("\t\t\t\t\t\t\t 3. Show history");
-                System.out.println("\t\t\t\t\t\t\t 4. Clear history");
-                System.out.println("\t\t\t\t\t\t\t 5. Add a slang word");
-                System.out.println("\t\t\t\t\t\t\t 6. Edit slang word");
-                System.out.println("\t\t\t\t\t\t\t 7. Delete slang word");
-                System.out.println("\t\t\t\t\t\t\t 8. Reset to list slang word at begin");
-                System.out.println("\t\t\t\t\t\t\t 9. Random a slang word");
-                System.out.println("\t\t\t\t\t\t\t 10. Quiz 1(Chose correct meaning for slang word)");
-                System.out.println("\t\t\t\t\t\t\t 11. Quiz 2(Chose correct slang word from meaning)");
+                System.out.println("\t\t\t\t 1. Find meaning by slang word ");
+                System.out.println("\t\t\t\t 2. Find slang word by keyword ");
+                System.out.println("\t\t\t\t 3. Show history");
+                System.out.println("\t\t\t\t 4. Clear history");
+                System.out.println("\t\t\t\t 5. Add a slang word");
+                System.out.println("\t\t\t\t 6. Edit slang word");
+                System.out.println("\t\t\t\t 7. Delete slang word");
+                System.out.println("\t\t\t\t 8. Reset to list slang word at begin");
+                System.out.println("\t\t\t\t 9. Random a slang word");
+                System.out.println("\t\t\t\t 10. Quiz 1(Chose correct meaning for slang word)");
+                System.out.println("\t\t\t\t 11. Quiz 2(Chose correct slang word from meaning)");
+                System.out.println("\t\t\t\t 12. Exit");
+
                 int choice = Integer.parseInt(sc.nextLine());
                 if (choice == 1) {
                     System.out.print("Enter slang word you want to know meaning: ");
@@ -331,7 +330,6 @@ public class SlangWord {
                 }else if (choice == 3) {
                     System.out.print("history");
                     System.out.flush();
-                    //
                     showHistory();
                     sc.nextLine();
                 }
